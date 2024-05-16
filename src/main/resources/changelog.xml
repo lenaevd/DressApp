@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="1" author="admin">
+        <createTable tableName="User">
+            <column name="Id" type="uuid">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="Name" type="varchar(500)">
+            <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2" author="admin">
+        <createTable tableName="Item">
+            <column name="Id" type="uuid">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="Name" type="varchar(500)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Link" type="varchar(500)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Fabric" type="varchar(500)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Color" type="varchar(500)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+<!--    Styles and Seasons start/ Точно ли нужны стилям и сезонам праймари кей? -->
+    <changeSet id="3" author="admin">
+        <createTable tableName="Style">
+            <column name="Id" type="integer">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="Name" type="varchar(500)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="4" author="admin">
+        <createTable tableName="Season">
+            <column name="Id" type="integer">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="Name" type="varchar(500)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="5" author="admin">
+        <createTable tableName="StylesItems">
+            <column name="Id" type="uuid">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="ItemId" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="StyleId" type="integer">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="6" author="admin">
+        <createTable tableName="SeasonsItems">
+            <column name="Id" type="uuid">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="ItemId" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SeasonId" type="integer">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <!--    Styles and Seasons finish-->
+
+    <!--    Users items and favourites start -->
+    <changeSet id="7" author="admin">
+        <createTable tableName="UsersItems">
+            <column name="Id" type="uuid">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="ItemId" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="UserId" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="8" author="admin">
+        <createTable tableName="UsersFavourites">
+            <column name="Id" type="uuid">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="ItemId" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="UserId" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <!--    Users items and favourites finish -->
+
+    <!--    Look start -->
+    <changeSet id="9" author="admin">
+        <createTable tableName="Look">
+            <column name="Id" type="uuid">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="UserId" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="10" author="admin">
+        <createTable tableName="LooksPart">
+            <column name="Id" type="uuid">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="LookId" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ItemId" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+<!--    Set foreign keys-->
+    <changeSet id="11" author="admin">
+        <addForeignKeyConstraint
+                baseColumnNames="ItemId"
+                baseTableName="StylesItems"
+                constraintName="fk_StylesItems_Item"
+                referencedColumnNames="Id"
+                referencedTableName="Item"/>
+        <addForeignKeyConstraint
+                baseColumnNames="StyleId"
+                baseTableName="StylesItems"
+                constraintName="fk_StylesItems_Style"
+                referencedColumnNames="Id"
+                referencedTableName="Style"/>
+
+        <addForeignKeyConstraint
+                baseColumnNames="ItemId"
+                baseTableName="SeasonsItems"
+                constraintName="fk_SeasonsItems_Item"
+                referencedColumnNames="Id"
+                referencedTableName="Item"/>
+        <addForeignKeyConstraint
+                baseColumnNames="SeasonId"
+                baseTableName="SeasonsItems"
+                constraintName="fk_SeasonsItems_Season"
+                referencedColumnNames="Id"
+                referencedTableName="Season"/>
+
+        <addForeignKeyConstraint
+                baseColumnNames="ItemId"
+                baseTableName="UsersItems"
+                constraintName="fk_UsersItems_Item"
+                referencedColumnNames="Id"
+                referencedTableName="Item"/>
+        <addForeignKeyConstraint
+                baseColumnNames="UserId"
+                baseTableName="UsersItems"
+                constraintName="fk_UsersItems_User"
+                referencedColumnNames="Id"
+                referencedTableName="User"/>
+
+        <addForeignKeyConstraint
+                baseColumnNames="ItemId"
+                baseTableName="UsersFavourites"
+                constraintName="fk_UsersFavourites_Item"
+                referencedColumnNames="Id"
+                referencedTableName="Item"/>
+        <addForeignKeyConstraint
+                baseColumnNames="UserId"
+                baseTableName="UsersFavourites"
+                constraintName="fk_UsersFavourites_User"
+                referencedColumnNames="Id"
+                referencedTableName="User"/>
+
+        <addForeignKeyConstraint
+                baseColumnNames="UserId"
+                baseTableName="Look"
+                constraintName="fk_Look_User"
+                referencedColumnNames="Id"
+                referencedTableName="User"/>
+
+        <addForeignKeyConstraint
+                baseColumnNames="ItemId"
+                baseTableName="LooksPart"
+                constraintName="fk_LooksPart_Item"
+                referencedColumnNames="Id"
+                referencedTableName="Item"/>
+        <addForeignKeyConstraint
+                baseColumnNames="LookId"
+                baseTableName="LooksPart"
+                constraintName="fk_LooksPart_Look"
+                referencedColumnNames="Id"
+                referencedTableName="Look"/>
+    </changeSet>
+</databaseChangeLog>
