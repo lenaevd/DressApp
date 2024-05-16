@@ -151,65 +151,91 @@
                 constraintName="fk_StylesItems_Item"
                 referencedColumnNames="Id"
                 referencedTableName="Item"/>
+    </changeSet>
+
+    <changeSet id="12" author="admin">
         <addForeignKeyConstraint
                 baseColumnNames="StyleId"
                 baseTableName="StylesItems"
                 constraintName="fk_StylesItems_Style"
                 referencedColumnNames="Id"
                 referencedTableName="Style"/>
+    </changeSet>
 
+    <changeSet id="13" author="admin">
         <addForeignKeyConstraint
                 baseColumnNames="ItemId"
                 baseTableName="SeasonsItems"
                 constraintName="fk_SeasonsItems_Item"
                 referencedColumnNames="Id"
                 referencedTableName="Item"/>
+    </changeSet>
+
+    <changeSet id="14" author="admin">
         <addForeignKeyConstraint
                 baseColumnNames="SeasonId"
                 baseTableName="SeasonsItems"
                 constraintName="fk_SeasonsItems_Season"
                 referencedColumnNames="Id"
                 referencedTableName="Season"/>
+    </changeSet>
 
+
+    <changeSet id="15" author="admin">
         <addForeignKeyConstraint
                 baseColumnNames="ItemId"
                 baseTableName="UsersItems"
                 constraintName="fk_UsersItems_Item"
                 referencedColumnNames="Id"
                 referencedTableName="Item"/>
+    </changeSet>
+
+    <changeSet id="16" author="admin">
         <addForeignKeyConstraint
                 baseColumnNames="UserId"
                 baseTableName="UsersItems"
                 constraintName="fk_UsersItems_User"
                 referencedColumnNames="Id"
                 referencedTableName="User"/>
+    </changeSet>
 
+    <changeSet id="17" author="admin">
         <addForeignKeyConstraint
                 baseColumnNames="ItemId"
                 baseTableName="UsersFavourites"
                 constraintName="fk_UsersFavourites_Item"
                 referencedColumnNames="Id"
                 referencedTableName="Item"/>
+    </changeSet>
+
+    <changeSet id="18" author="admin">
         <addForeignKeyConstraint
                 baseColumnNames="UserId"
                 baseTableName="UsersFavourites"
                 constraintName="fk_UsersFavourites_User"
                 referencedColumnNames="Id"
                 referencedTableName="User"/>
+    </changeSet>
 
+    <changeSet id="19" author="admin">
         <addForeignKeyConstraint
                 baseColumnNames="UserId"
                 baseTableName="Look"
                 constraintName="fk_Look_User"
                 referencedColumnNames="Id"
                 referencedTableName="User"/>
+    </changeSet>
 
+    <changeSet id="20" author="admin">
         <addForeignKeyConstraint
                 baseColumnNames="ItemId"
                 baseTableName="LooksPart"
                 constraintName="fk_LooksPart_Item"
                 referencedColumnNames="Id"
                 referencedTableName="Item"/>
+    </changeSet>
+
+    <changeSet id="21" author="admin">
         <addForeignKeyConstraint
                 baseColumnNames="LookId"
                 baseTableName="LooksPart"
