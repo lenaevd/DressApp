@@ -4,8 +4,6 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
 
-    <include file="v.1.0.0/changelog.xml" relativeToChangelogFile="true"/>
-
     <changeSet id="insert-styles" author="admin">
         <insert tableName="Style">
             <column name="Name" value="Party"/>
@@ -60,10 +58,29 @@
         </insert>
     </changeSet>
 
-    <changeSet id="insert-seasons" author="admin">
-        <insert tableName="Season">
-            <column name="Name" value="Summer"/>
-            <column name="Id" value="1"/>
+    <changeSet id="insert-items" author="admin">
+        <insert tableName="Item">
+            <column name="Id" value="649c0400-fcf9-431c-ac16-5a48076f1ad0"/>
+            <column name="Name" value="Green sweater"/>
+            <column name="Link" value="https://ucarecdn.com/e20df10a-5fd3-4331-a96c-e8eb04bfc8e0/10d594bdf3157ef922e610116b84429b.jpg"/>
+            <column name="Fabric" value="Cotton"/>
+            <column name="Color" value="Green"/>
+        </insert>
+
+        <insert tableName="Item">
+            <column name="Id" value="f03c92b4-406f-408d-b2ee-3254a740e93e"/>
+            <column name="Name" value="White sweater"/>
+            <column name="Link" value="https://ucarecdn.com/3d710e5a-74e4-4f22-b95e-67d7f6aaaa44/29f65bd87e63d9d35510aee5a60ec9a9.jpg"/>
+            <column name="Fabric" value="Cotton"/>
+            <column name="Color" value="White"/>
+        </insert>
+
+        <insert tableName="Item">
+            <column name="Id" value="9900df06-5bfc-42c5-a2b8-7ca8a98706c4"/>
+            <column name="Name" value="White undershirt"/>
+            <column name="Link" value="https://ucarecdn.com/345eef49-7217-47e7-8bd3-54989c558a5b/3ab2a36cae289ce223db5223e0fdfee9.jpg"/>
+            <column name="Fabric" value="Cotton"/>
+            <column name="Color" value="White"/>
         </insert>
     </changeSet>
 
