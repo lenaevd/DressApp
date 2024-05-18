@@ -143,7 +143,7 @@
         </createTable>
     </changeSet>
 
-<!--    Set foreign keys-->
+<!--    Set foreign keys start-->
     <changeSet id="11" author="admin">
         <addForeignKeyConstraint
                 baseColumnNames="ItemId"
@@ -243,4 +243,5 @@
                 referencedColumnNames="Id"
                 referencedTableName="Look"/>
     </changeSet>
+    <!--    Set foreign keys finish-->
 </databaseChangeLog>
