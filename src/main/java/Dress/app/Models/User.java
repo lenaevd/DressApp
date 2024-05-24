@@ -8,12 +8,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.FetchType;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 @Entity
-@Table(name ="User")
+@Table(name ="users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,12 +22,13 @@ public class User {
     private String Name;
 
 
-    @ManyToMany(mappedBy = "User", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Item> UsersItems = new ArrayList<>();
+
     // вот хз как это сделать
 //    @ManyToMany(mappedBy = "User", cascade = CascadeType.ALL)
 //    private List<Item> UsersFavourites;
 
-    @OneToMany(mappedBy = "User", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "Owner", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Look> UsersLook = new ArrayList<>();
 }

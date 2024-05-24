@@ -4,16 +4,16 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
 
-    <changeSet id="1" author="admin">
-        <createTable tableName="User">
-            <column name="Id" type="uuid">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
-            <column name="Name" type="varchar(500)">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-    </changeSet>
+<!--    <changeSet id="1" author="admin">-->
+<!--        <createTable tableName="User">-->
+<!--            <column name="Id" type="uuid">-->
+<!--                <constraints primaryKey="true" nullable="false"/>-->
+<!--            </column>-->
+<!--            <column name="Name" type="varchar(500)">-->
+<!--                <constraints nullable="false"/>-->
+<!--            </column>-->
+<!--        </createTable>-->
+<!--    </changeSet>-->
 
     <changeSet id="2" author="admin">
         <createTable tableName="Item">

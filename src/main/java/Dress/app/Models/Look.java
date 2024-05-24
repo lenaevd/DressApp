@@ -14,9 +14,36 @@ public class Look {
     private UUID Id;
     @ManyToOne
     @JoinColumn(name = "UserId", nullable = false)
-    private User User;
+    private User Owner;
 
     //и здесь хз тоже
-    @ManyToMany(mappedBy = "Look", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "looks", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Item> LooksPart = new ArrayList<>();
+
+    public Look() {
+    }
+
+    public UUID getId() {
+        return Id;
+    }
+
+    public void setId(UUID id) {
+        Id = id;
+    }
+
+    public User getOwner() {
+        return Owner;
+    }
+
+    public void setOwner(User owner) {
+        Owner = owner;
+    }
+
+    public List<Item> getLooksPart() {
+        return LooksPart;
+    }
+
+    public void setLooksPart(List<Item> looksPart) {
+        LooksPart = looksPart;
+    }
 }
