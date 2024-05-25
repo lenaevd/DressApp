@@ -6,36 +6,38 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 @Entity
-@Table(name = "Item")
+@Table(name = "item")
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID Id;
-    private String Name;
-    private String Link;
-    private String Fabric;
-    private String Color;
+    private UUID id;
+    private String name;
+    private String link;
+    private String fabric;
+    private String color;
 
     //Каким видом коллекции указывать связанные таблицы?
-    @OneToMany(mappedBy = "Item", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Style> ItemsStyles = new ArrayList<>();
 
-    @OneToMany(mappedBy = "Item", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Season> ItemsSeasons = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "UsersItems",
-            joinColumns = @JoinColumn(name = "ItemId"),
-            inverseJoinColumns = @JoinColumn(name = "UserId")
-    )
+    @ManyToMany(mappedBy = "items", fetch = FetchType.EAGER)
+//    @JoinTable(
+//            name = "users_items",
+//            joinColumns = @JoinColumn(name = "item_id"),
+//            inverseJoinColumns = @JoinColumn(name = "user_id")
+//    )
     private List<User> users = new ArrayList<>();
+//    @ManyToMany(mappedBy = "UsersItems", fetch = FetchType.EAGER)
+//    private List<User> users = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name = "LooksPart",
-            joinColumns = @JoinColumn(name = "ItemId"),
-            inverseJoinColumns = @JoinColumn(name = "LookId")
+            name = "looks_part",
+            joinColumns = @JoinColumn(name = "item_id"),
+            inverseJoinColumns = @JoinColumn(name = "look_id")
     )
     private List<Look> looks = new ArrayList<>();
 
@@ -44,43 +46,43 @@ public class Item {
     }
 
     public UUID getId() {
-        return Id;
+        return id;
     }
 
     public void setId(UUID id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public String getLink() {
-        return Link;
+        return link;
     }
 
     public void setLink(String link) {
-        Link = link;
+        this.link = link;
     }
 
     public String getFabric() {
-        return Fabric;
+        return fabric;
     }
 
     public void setFabric(String fabric) {
-        Fabric = fabric;
+        this.fabric = fabric;
     }
 
     public String getColor() {
-        return Color;
+        return color;
     }
 
     public void setColor(String color) {
-        Color = color;
+        this.color = color;
     }
 
     public List<Style> getItemsStyles() {
@@ -118,11 +120,11 @@ public class Item {
     @Override
     public String toString() {
         return "Item{" +
-                "Id=" + Id +
-                ", Name='" + Name + '\'' +
-                ", Link='" + Link + '\'' +
-                ", Fabric='" + Fabric + '\'' +
-                ", Color='" + Color + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", link='" + link + '\'' +
+                ", fabric='" + fabric + '\'' +
+                ", color='" + color + '\'' +
                 ", ItemsStyles=" + ItemsStyles +
                 ", ItemsSeasons=" + ItemsSeasons +
                 ", users=" + users +

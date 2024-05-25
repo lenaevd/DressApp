@@ -7,14 +7,14 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "Look")
+@Table(name = "look")
 public class Look {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID Id;
+    private UUID id;
     @ManyToOne
-    @JoinColumn(name = "UserId", nullable = false)
-    private User Owner;
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     //и здесь хз тоже
     @ManyToMany(mappedBy = "looks", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -24,19 +24,19 @@ public class Look {
     }
 
     public UUID getId() {
-        return Id;
+        return id;
     }
 
     public void setId(UUID id) {
-        Id = id;
+        this.id = id;
     }
 
-    public User getOwner() {
-        return Owner;
+    public User getUser() {
+        return user;
     }
 
-    public void setOwner(User owner) {
-        Owner = owner;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public List<Item> getLooksPart() {

@@ -3,12 +3,12 @@ package Dress.app.Models;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Season")
+@Table(name = "season")
 public class Season {
-    @jakarta.persistence.Id
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer Id;
-    private String Name;
+    private Integer id;
+    private String name;
     @ManyToOne
-    private Item Item;
+    private Item item;
 }
