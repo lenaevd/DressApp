@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -26,6 +27,12 @@ public class ItemController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
+    @PostMapping("/saveAll")
+    public ResponseEntity<Void> saveAllItems(@RequestBody List<Item> items) {
+        itemService.saveAll(items);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
     @GetMapping
     public ResponseEntity<List<Item>> getAllItems() {
         List<Item> items = itemService.getAll();
@@ -34,11 +41,11 @@ public class ItemController {
 
     @GetMapping("/getById")
     public ResponseEntity<Item> getItemById(@RequestParam UUID id) {
-        Item item = itemService.get(id);
-        if (item == null) {
+        Optional<Item> item = itemService.get(id);
+        if (item.isEmpty()) {
             return ResponseEntity.notFound().build();
         } else {
-            return ResponseEntity.ok(item);
+            return ResponseEntity.ok(item.get());
         }
     }
 }

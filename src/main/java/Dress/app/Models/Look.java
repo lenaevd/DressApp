@@ -12,13 +12,12 @@ public class Look {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    //и здесь хз тоже
     @ManyToMany(mappedBy = "looks", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Item> LooksPart = new ArrayList<>();
+    private List<Item> parts = new ArrayList<>();
 
     public Look() {
     }
@@ -39,11 +38,11 @@ public class Look {
         this.user = user;
     }
 
-    public List<Item> getLooksPart() {
-        return LooksPart;
+    public List<Item> getParts() {
+        return parts;
     }
 
-    public void setLooksPart(List<Item> looksPart) {
-        LooksPart = looksPart;
+    public void setParts(List<Item> parts) {
+        this.parts = parts;
     }
 }

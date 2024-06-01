@@ -16,22 +16,24 @@ public class Item {
     private String fabric;
     private String color;
 
-    //Каким видом коллекции указывать связанные таблицы?
-    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Style> ItemsStyles = new ArrayList<>();
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "styles_items",
+            joinColumns = @JoinColumn(name = "item_id"),
+            inverseJoinColumns = @JoinColumn(name = "style_id")
+    )
+    private List<Style> styles = new ArrayList<>();
 
-    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Season> ItemsSeasons = new ArrayList<>();
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "seasons_items",
+            joinColumns = @JoinColumn(name = "item_id"),
+            inverseJoinColumns = @JoinColumn(name = "season_id")
+    )
+    private List<Season> seasons = new ArrayList<>();
 
     @ManyToMany(mappedBy = "items", fetch = FetchType.EAGER)
-//    @JoinTable(
-//            name = "users_items",
-//            joinColumns = @JoinColumn(name = "item_id"),
-//            inverseJoinColumns = @JoinColumn(name = "user_id")
-//    )
     private List<User> users = new ArrayList<>();
-//    @ManyToMany(mappedBy = "UsersItems", fetch = FetchType.EAGER)
-//    private List<User> users = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -43,6 +45,21 @@ public class Item {
 
 
     public Item() {
+    }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", link='" + link + '\'' +
+                ", fabric='" + fabric + '\'' +
+                ", color='" + color + '\'' +
+                ", styles=" + styles +
+                ", seasons=" + seasons +
+                ", users=" + users +
+                ", looks=" + looks +
+                '}';
     }
 
     public UUID getId() {
@@ -85,20 +102,20 @@ public class Item {
         this.color = color;
     }
 
-    public List<Style> getItemsStyles() {
-        return ItemsStyles;
+    public List<Style> getStyles() {
+        return styles;
     }
 
-    public void setItemsStyles(List<Style> itemsStyles) {
-        ItemsStyles = itemsStyles;
+    public void setStyles(List<Style> styles) {
+        this.styles = styles;
     }
 
-    public List<Season> getItemsSeasons() {
-        return ItemsSeasons;
+    public List<Season> getSeasons() {
+        return seasons;
     }
 
-    public void setItemsSeasons(List<Season> itemsSeasons) {
-        ItemsSeasons = itemsSeasons;
+    public void setSeasons(List<Season> seasons) {
+        this.seasons = seasons;
     }
 
     public List<User> getUsers() {
@@ -115,20 +132,5 @@ public class Item {
 
     public void setLooks(List<Look> looks) {
         this.looks = looks;
-    }
-
-    @Override
-    public String toString() {
-        return "Item{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", link='" + link + '\'' +
-                ", fabric='" + fabric + '\'' +
-                ", color='" + color + '\'' +
-                ", ItemsStyles=" + ItemsStyles +
-                ", ItemsSeasons=" + ItemsSeasons +
-                ", users=" + users +
-                ", looks=" + looks +
-                '}';
     }
 }

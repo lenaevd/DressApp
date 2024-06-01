@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -21,12 +22,16 @@ public class ItemService {
         repo.save(item);
     }
 
+    public void saveAll(List<Item> items) {
+        repo.saveAll(items);
+    }
+
     public List<Item> getAll(){
         return repo.findAll();
     }
 
-    public Item get(UUID id) {
-        return repo.getReferenceById(id);
+    public Optional<Item> get(UUID id) {
+        return repo.findById(id);
     }
 
 }

@@ -13,7 +13,6 @@ public class User {
     private UUID id;
     private String name;
 
-//    @ManyToMany(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_items",
@@ -22,12 +21,16 @@ public class User {
     )
     private List<Item> items = new ArrayList<>();
 
-    // вот хз как это сделать
-//    @ManyToMany(mappedBy = "User", cascade = CascadeType.ALL)
-//    private List<Item> UsersFavourites;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "users_favourites",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "item_id")
+    )
+    private List<Item> favourites = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Look> UsersLook = new ArrayList<>();
+    private List<Look> looks = new ArrayList<>();
 
     public User() {
     }
@@ -56,11 +59,19 @@ public class User {
         this.items = items;
     }
 
-    public List<Look> getUsersLook() {
-        return UsersLook;
+    public List<Look> getLooks() {
+        return looks;
     }
 
-    public void setUsersLook(List<Look> usersLook) {
-        UsersLook = usersLook;
+    public void setLooks(List<Look> looks) {
+        this.looks = looks;
+    }
+
+    public List<Item> getFavourites() {
+        return favourites;
+    }
+
+    public void setFavourites(List<Item> favourites) {
+        this.favourites = favourites;
     }
 }
