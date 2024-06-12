@@ -17,7 +17,7 @@ public class Item {
     private String color;
     private String type;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(
             name = "styles_items",
             joinColumns = @JoinColumn(name = "item_id"),
@@ -25,7 +25,7 @@ public class Item {
     )
     private List<Style> styles = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "seasons_items",
             joinColumns = @JoinColumn(name = "item_id"),
