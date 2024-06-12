@@ -32,6 +32,9 @@
             <column name="color" type="varchar(500)">
                 <constraints nullable="false"/>
             </column>
+            <column name="type" type="varchar(500)">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
 

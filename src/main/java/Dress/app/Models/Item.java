@@ -15,6 +15,7 @@ public class Item {
     private String link;
     private String fabric;
     private String color;
+    private String type;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -45,21 +46,6 @@ public class Item {
 
 
     public Item() {
-    }
-
-    @Override
-    public String toString() {
-        return "Item{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", link='" + link + '\'' +
-                ", fabric='" + fabric + '\'' +
-                ", color='" + color + '\'' +
-                ", styles=" + styles +
-                ", seasons=" + seasons +
-                ", users=" + users +
-                ", looks=" + looks +
-                '}';
     }
 
     public UUID getId() {
@@ -132,5 +118,13 @@ public class Item {
 
     public void setLooks(List<Look> looks) {
         this.looks = looks;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

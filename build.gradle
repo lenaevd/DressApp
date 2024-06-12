@@ -43,6 +43,7 @@ dependencies {
 	implementation 'org.springframework:spring-web:6.1.8'
 
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+
 }
 
 liquibase {

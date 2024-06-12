@@ -45,4 +45,8 @@ public class Look {
     public void setParts(List<Item> parts) {
         this.parts = parts;
     }
+
+    public void addPart(Item part) {
+        this.parts.add(part);
+    }
 }

@@ -65,6 +65,7 @@
             <column name="link" value="https://ucarecdn.com/e20df10a-5fd3-4331-a96c-e8eb04bfc8e0/10d594bdf3157ef922e610116b84429b.jpg"/>
             <column name="fabric" value="Cotton"/>
             <column name="color" value="Green"/>
+            <column name="type" value="long"/>
         </insert>
 
         <insert tableName="item">
@@ -73,6 +74,7 @@
             <column name="link" value="https://ucarecdn.com/3d710e5a-74e4-4f22-b95e-67d7f6aaaa44/29f65bd87e63d9d35510aee5a60ec9a9.jpg"/>
             <column name="fabric" value="Cotton"/>
             <column name="color" value="White"/>
+            <column name="type" value="long"/>
         </insert>
 
         <insert tableName="item">
@@ -81,6 +83,7 @@
             <column name="link" value="https://ucarecdn.com/345eef49-7217-47e7-8bd3-54989c558a5b/3ab2a36cae289ce223db5223e0fdfee9.jpg"/>
             <column name="fabric" value="Cotton"/>
             <column name="color" value="White"/>
+            <column name="type" value="shirt"/>
         </insert>
     </changeSet>
 

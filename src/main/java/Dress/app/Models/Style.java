@@ -14,4 +14,13 @@ public class Style {
     private String name;
     @ManyToMany(mappedBy = "styles", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Item> items = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "Style{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", items=" + items +
+                '}';
+    }
 }

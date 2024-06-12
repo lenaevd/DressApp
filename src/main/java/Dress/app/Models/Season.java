@@ -14,4 +14,13 @@ public class Season {
     private String name;
     @ManyToMany(mappedBy = "seasons", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Item> items = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "Season{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", items=" + items +
+                '}';
+    }
 }
