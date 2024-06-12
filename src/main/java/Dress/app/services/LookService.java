@@ -32,7 +32,7 @@ public class LookService {
     }
 
     public void removeStyles(List<Item> items, List<Style> styles) {
-        items.removeIf(item -> !item.getSeasons().stream().anyMatch(styles::contains));
+        items.removeIf(item -> !item.getStyles().stream().anyMatch(styles::contains));
     }
 
     //передаём какой вариант делать, список обязательных сезонов стилей и обязательная вещь если есть
