@@ -13,10 +13,6 @@ public class Style {
     private Integer id;
     private String name;
     @ManyToMany(mappedBy = "styles", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-//    @ManyToMany(mappedBy = "styles", cascade = {
-//            CascadeType.PERSIST,
-//            CascadeType.MERGE
-//    }, fetch = FetchType.EAGER)
     private List<Item> items = new ArrayList<>();
 
     public Style() {

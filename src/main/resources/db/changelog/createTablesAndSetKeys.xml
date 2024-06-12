@@ -63,7 +63,7 @@
 
     <changeSet id="5" author="admin">
         <createTable tableName="styles_items">
-            <column name="id" type="uuid">
+            <column autoIncrement="true" name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="item_id" type="uuid">
@@ -77,7 +77,7 @@
 
     <changeSet id="6" author="admin">
         <createTable tableName="seasons_items">
-            <column name="id" type="uuid">
+            <column autoIncrement="true" name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="item_id" type="uuid">

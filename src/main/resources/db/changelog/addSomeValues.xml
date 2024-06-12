@@ -58,55 +58,11 @@
         </insert>
     </changeSet>
 
-    <changeSet id="insert-items" author="admin">
-        <insert tableName="item">
-            <column name="id" value="649c0400-fcf9-431c-ac16-5a48076f1ad0"/>
-            <column name="name" value="Green sweater"/>
-            <column name="link" value="https://ucarecdn.com/e20df10a-5fd3-4331-a96c-e8eb04bfc8e0/10d594bdf3157ef922e610116b84429b.jpg"/>
-            <column name="fabric" value="Cotton"/>
-            <column name="color" value="Green"/>
-            <column name="type" value="long"/>
-        </insert>
-
-        <insert tableName="item">
-            <column name="id" value="f03c92b4-406f-408d-b2ee-3254a740e93e"/>
-            <column name="name" value="White sweater"/>
-            <column name="link" value="https://ucarecdn.com/3d710e5a-74e4-4f22-b95e-67d7f6aaaa44/29f65bd87e63d9d35510aee5a60ec9a9.jpg"/>
-            <column name="fabric" value="Cotton"/>
-            <column name="color" value="White"/>
-            <column name="type" value="long"/>
-        </insert>
-
-        <insert tableName="item">
-            <column name="id" value="9900df06-5bfc-42c5-a2b8-7ca8a98706c4"/>
-            <column name="name" value="White undershirt"/>
-            <column name="link" value="https://ucarecdn.com/345eef49-7217-47e7-8bd3-54989c558a5b/3ab2a36cae289ce223db5223e0fdfee9.jpg"/>
-            <column name="fabric" value="Cotton"/>
-            <column name="color" value="White"/>
-            <column name="type" value="shirt"/>
-        </insert>
-    </changeSet>
-
     <changeSet id="insert-user" author="admin">
         <insert tableName="users">
             <column name="id" value="9948d6e7-7668-4a69-bb04-57dda8a7d79e"/>
             <column name="name" value="lena"/>
         </insert>
     </changeSet>
-
-
-<!--    <changeSet id="insert-users-items" author="admin">-->
-<!--        <insert tableName="users_items">-->
-<!--            <column name="id" value="54325409-c65d-44f3-bb5d-3e4e78f3c01f"/>-->
-<!--            <column name="user_id" value="9948d6e7-7668-4a69-bb04-57dda8a7d79e"/>-->
-<!--            <column name="item_id" value="2a53c2d0-f0de-4b27-8d3f-3c1210ade9a4"/>-->
-<!--        </insert>-->
-
-<!--        <insert tableName="users_items">-->
-<!--            <column name="id" value="897ff4e8-213d-4553-b1be-5842d8b1d3c6"/>-->
-<!--            <column name="user_id" value="9948d6e7-7668-4a69-bb04-57dda8a7d79e"/>-->
-<!--            <column name="item_id" value="f03c92b4-406f-408d-b2ee-3254a740e93e"/>-->
-<!--        </insert>-->
-<!--    </changeSet>-->
 
 </databaseChangeLog>

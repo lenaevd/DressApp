@@ -25,7 +25,7 @@ public class Item {
     )
     private List<Style> styles = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(
             name = "seasons_items",
             joinColumns = @JoinColumn(name = "item_id"),
