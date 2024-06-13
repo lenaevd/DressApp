@@ -24,36 +24,27 @@ public class LookController {
         this.styleConverter = styleConverter;
     }
 
- /* достать предыдущие луки юзера
- * получить лук(в сервисе после создания сохранить его)  */
-
     @GetMapping()
-    public ResponseEntity<List<Look>> getAllLooks() {
+    public ResponseEntity<List<LookInfo>> getAllLooks() {
         List<Look> looks = lookService.getAll();
-        return ResponseEntity.ok(looks);
+        return ResponseEntity.ok(LookInfo.createInfo(looks));
     }
 
     @GetMapping("/new") // используем когда обязательных нет
-    public ResponseEntity<Look> getNewLookNoParameters() {
+    public ResponseEntity<List<ItemsInfo>> getNewLookNoParameters() {
         Look look = lookService.createLookNoParameters();
-        return ResponseEntity.ok(look);
+        return ResponseEntity.ok(ItemsInfo.createInfo(look.getParts()));
     }
 
     @PostMapping("/parameters")  // крч на это маппинг отправляем, только если есть обязательные сезон, стиль или вещи
     //т.к. если тело пустое - ругается, с пустым телом используем маппинг /new
-    public ResponseEntity<Look> getNewLookWithParameters(@RequestBody LookInfo data) {
+    public ResponseEntity<List<ItemsInfo>> getNewLookWithParameters(@RequestBody LookParameters data) {
         Look look = lookService.createLookWithParameters(
                 seasonConverter.makeSeasons(data.getSeasonsNames()),
                 styleConverter.makeStyles(data.getStylesNames()),
                 data.getItemId());
-        return ResponseEntity.ok(look);
+        return ResponseEntity.ok(ItemsInfo.createInfo(look.getParts()));
     }
-
-//    @PostMapping("/test") //проверяла, что сезоны и стили парвильно находятся
-//    public ResponseEntity<String> getNew(@RequestBody LookInfo data) {
-//        Season season = seasonConverter.makeSeasons(data.getSeasonsNames()).get(0);
-//        return ResponseEntity.ok(season.toString());
-//    }
 }
 
 

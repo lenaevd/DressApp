@@ -16,7 +16,12 @@ public class Look {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToMany(mappedBy = "looks", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "looks_part",
+            joinColumns = @JoinColumn(name = "look_id"),
+            inverseJoinColumns = @JoinColumn(name = "item_id")
+    )
     private List<Item> parts = new ArrayList<>();
 
     public Look() {
@@ -48,5 +53,6 @@ public class Look {
 
     public void addPart(Item part) {
         this.parts.add(part);
+
     }
 }

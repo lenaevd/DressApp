@@ -134,7 +134,7 @@
 
     <changeSet id="10" author="admin">
         <createTable tableName="looks_part">
-            <column name="id" type="uuid">
+            <column autoIncrement="true" name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="look_id" type="uuid">

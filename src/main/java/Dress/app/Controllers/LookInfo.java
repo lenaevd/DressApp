@@ -1,47 +1,48 @@
 package Dress.app.Controllers;
 
+import Dress.app.Models.Look;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 public class LookInfo {
-    private List<String> seasonsNames = new ArrayList<>();
-    private List<String> stylesNames = new ArrayList<>();
-    private UUID itemId;
+    private UUID id;
+    private List<ItemsInfo> items;
 
     public LookInfo() {
     }
 
-    @Override
-    public String toString() {
-        return "LookInfo{" +
-                "seasonsNames=" + seasonsNames +
-                ", stylesNames=" + stylesNames +
-                ", itemId=" + itemId +
-                '}';
+    public LookInfo(UUID id, List<ItemsInfo> items) {
+        this.id = id;
+        this.items = items;
     }
 
-    public List<String> getSeasonsNames() {
-        return seasonsNames;
+    public static List<LookInfo> createInfo(List<Look> looks) {
+        List<LookInfo> list = new ArrayList<>();
+        for(Look look: looks) {
+            LookInfo info = new LookInfo(
+                    look.getId(),
+                    ItemsInfo.createInfo(look.getParts())
+            );
+            list.add(info);
+        }
+        return list;
     }
 
-    public void setSeasonsNames(List<String> seasonsNames) {
-        this.seasonsNames = seasonsNames;
+    public UUID getId() {
+        return id;
     }
 
-    public List<String> getStylesNames() {
-        return stylesNames;
+    public void setId(UUID id) {
+        this.id = id;
     }
 
-    public void setStylesNames(List<String> stylesNames) {
-        this.stylesNames = stylesNames;
+    public List<ItemsInfo> getItems() {
+        return items;
     }
 
-    public UUID getItemId() {
-        return itemId;
-    }
-
-    public void setItemId(UUID itemId) {
-        this.itemId = itemId;
+    public void setItems(List<ItemsInfo> items) {
+        this.items = items;
     }
 }

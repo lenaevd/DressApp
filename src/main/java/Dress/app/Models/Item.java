@@ -36,12 +36,7 @@ public class Item {
     @ManyToMany(mappedBy = "items", fetch = FetchType.EAGER)
     private List<User> users = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "looks_part",
-            joinColumns = @JoinColumn(name = "item_id"),
-            inverseJoinColumns = @JoinColumn(name = "look_id")
-    )
+    @ManyToMany(mappedBy = "parts", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private List<Look> looks = new ArrayList<>();
 
 

@@ -1,9 +1,7 @@
 package Dress.app.services;
 
 import Dress.app.Models.*;
-import Dress.app.repos.ItemRepository;
-import Dress.app.repos.LookRepository;
-import Dress.app.repos.StyleRepository;
+import Dress.app.repos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,13 +12,18 @@ public class LookService {
     private LookRepository lookRepo;
     private ItemRepository itemRepo;
     private StyleRepository styleRepo;
+    private UserRepository userRepo;
+    private SeasonRepository seasonRepo;
 
 
     @Autowired
-    public LookService(LookRepository lookRepo, ItemRepository itemRepo, StyleRepository styleRepo) {
+    public LookService(LookRepository lookRepo, ItemRepository itemRepo,
+                       StyleRepository styleRepo, UserRepository userRepo, SeasonRepository seasonRepo) {
         this.lookRepo = lookRepo;
         this.itemRepo = itemRepo;
         this.styleRepo = styleRepo;
+        this.userRepo = userRepo;
+        this.seasonRepo = seasonRepo;
     }
 
     public List<Look> getAll() {
@@ -33,6 +36,12 @@ public class LookService {
 
     public void removeStyles(List<Item> items, List<Style> styles) {
         items.removeIf(item -> !item.getStyles().stream().anyMatch(styles::contains));
+    }
+
+    public <T> List<T> createListFromObject(T object) {
+        List<T> list = new ArrayList<>();
+        list.add(object);
+        return list;
     }
 
     //передаём какой вариант делать, список обязательных сезонов стилей и обязательная вещь если есть
@@ -63,7 +72,7 @@ public class LookService {
         }
 
         Look look = new Look();
-        look.setUser(new User());
+        look.setUser(userRepo.findById(UUID.fromString("9948d6e7-7668-4a69-bb04-57dda8a7d79e")).get());
         Random rn = new Random();
         if (option == 0) { //делаем просто верх + низ + обувь
             List<Item> topItems = itemRepo.findAllByTypeIn(top);
@@ -73,30 +82,36 @@ public class LookService {
             removeStyles(bootsItems, styles);
             removeStyles(topItems, styles);
             removeStyles(bottomItems, styles);
+
+//            removeSeasons(bootsItems, seasons);
+//            removeSeasons(bottomItems, seasons);
+//            removeSeasons(topItems, seasons);
+
             if (seasons != null) {
                 removeSeasons(bootsItems, seasons);
                 removeSeasons(bottomItems, seasons);
                 removeSeasons(topItems, seasons);
             }
+
             //выбираем рандомные вещи и создаем лук
             if (item == null) {
-                look.addPart(topItems.get(rn.nextInt(topItems.size() + 1)));
-                look.addPart(bottomItems.get(rn.nextInt(bottomItems.size() + 1)));
-                look.addPart(bootsItems.get(rn.nextInt(bootsItems.size() + 1)));
+                look.addPart(topItems.get(rn.nextInt(topItems.size())));
+                look.addPart(bottomItems.get(rn.nextInt(bottomItems.size())));
+                look.addPart(bootsItems.get(rn.nextInt(bootsItems.size())));
             } else {
                 String itemType = item.getType();
                 if (Objects.equals(itemType, "Boots")){
-                    look.addPart(topItems.get(rn.nextInt(topItems.size() + 1)));
-                    look.addPart(bottomItems.get(rn.nextInt(bottomItems.size() + 1)));
+                    look.addPart(topItems.get(rn.nextInt(topItems.size())));
+                    look.addPart(bottomItems.get(rn.nextInt(bottomItems.size())));
                     look.addPart(item);
                 } else if (top.contains(itemType)) {
                     look.addPart(item);
-                    look.addPart(bottomItems.get(rn.nextInt(bottomItems.size() + 1)));
-                    look.addPart(bootsItems.get(rn.nextInt(bootsItems.size() + 1)));
+                    look.addPart(bottomItems.get(rn.nextInt(bottomItems.size())));
+                    look.addPart(bootsItems.get(rn.nextInt(bootsItems.size())));
                 } else if (bottom.contains(itemType)) {
-                    look.addPart(topItems.get(rn.nextInt(topItems.size() + 1)));
+                    look.addPart(topItems.get(rn.nextInt(topItems.size())));
                     look.addPart(item);
-                    look.addPart(bootsItems.get(rn.nextInt(bootsItems.size() + 1)));
+                    look.addPart(bootsItems.get(rn.nextInt(bootsItems.size())));
                 }
             }
         }
@@ -112,45 +127,46 @@ public class LookService {
             removeStyles(overTopItems, styles);
             removeStyles(topItems, styles);
             removeStyles(bottomItems, styles);
+
+//            removeSeasons(bootsItems, seasons);
+//            removeSeasons(bottomItems, seasons);
+//            removeSeasons(topItems, seasons);
+//            removeSeasons(overTopItems, seasons);
+
             if (seasons != null) {
                 removeSeasons(bootsItems, seasons);
                 removeSeasons(bottomItems, seasons);
                 removeSeasons(topItems, seasons);
                 removeSeasons(overTopItems, seasons);
             }
-            //выбираем рандомные вещи и создаем лук
-            look.addPart(overTopItems.get(rn.nextInt(overTopItems.size() + 1)));
-            look.addPart(topItems.get(rn.nextInt(topItems.size() + 1)));
-            look.addPart(bottomItems.get(rn.nextInt(bottomItems.size() + 1)));
-            look.addPart(bootsItems.get(rn.nextInt(bootsItems.size() + 1)));
 
             if (item == null) { // если обязательной вещи нет
-                look.addPart(overTopItems.get(rn.nextInt(overTopItems.size() + 1)));
-                look.addPart(topItems.get(rn.nextInt(topItems.size() + 1)));
-                look.addPart(bottomItems.get(rn.nextInt(bottomItems.size() + 1)));
-                look.addPart(bootsItems.get(rn.nextInt(bootsItems.size() + 1)));
+                look.addPart(overTopItems.get(rn.nextInt(overTopItems.size())));
+                look.addPart(topItems.get(rn.nextInt(topItems.size())));
+                look.addPart(bottomItems.get(rn.nextInt(bottomItems.size())));
+                look.addPart(bootsItems.get(rn.nextInt(bootsItems.size())));
             } else {
                 String itemType = item.getType();
                 if (Objects.equals(itemType, "Boots")){
-                    look.addPart(overTopItems.get(rn.nextInt(overTopItems.size() + 1)));
-                    look.addPart(topItems.get(rn.nextInt(topItems.size() + 1)));
-                    look.addPart(bottomItems.get(rn.nextInt(bottomItems.size() + 1)));
+                    look.addPart(overTopItems.get(rn.nextInt(overTopItems.size())));
+                    look.addPart(topItems.get(rn.nextInt(topItems.size())));
+                    look.addPart(bottomItems.get(rn.nextInt(bottomItems.size())));
                     look.addPart(item);
                 } else if (top.contains(itemType)) {
-                    look.addPart(overTopItems.get(rn.nextInt(overTopItems.size() + 1)));
+                    look.addPart(overTopItems.get(rn.nextInt(overTopItems.size())));
                     look.addPart(item);
-                    look.addPart(bottomItems.get(rn.nextInt(bottomItems.size() + 1)));
-                    look.addPart(bootsItems.get(rn.nextInt(bootsItems.size() + 1)));
+                    look.addPart(bottomItems.get(rn.nextInt(bottomItems.size())));
+                    look.addPart(bootsItems.get(rn.nextInt(bootsItems.size())));
                 } else if (bottom.contains(itemType)) {
-                    look.addPart(overTopItems.get(rn.nextInt(overTopItems.size() + 1)));
-                    look.addPart(topItems.get(rn.nextInt(topItems.size() + 1)));
+                    look.addPart(overTopItems.get(rn.nextInt(overTopItems.size())));
+                    look.addPart(topItems.get(rn.nextInt(topItems.size())));
                     look.addPart(item);
-                    look.addPart(bootsItems.get(rn.nextInt(bootsItems.size() + 1)));
+                    look.addPart(bootsItems.get(rn.nextInt(bootsItems.size())));
                 } else if (overTop.contains(itemType)) {
                     look.addPart(item);
-                    look.addPart(topItems.get(rn.nextInt(topItems.size() + 1)));
-                    look.addPart(bottomItems.get(rn.nextInt(bottomItems.size() + 1)));
-                    look.addPart(bootsItems.get(rn.nextInt(bootsItems.size() + 1)));
+                    look.addPart(topItems.get(rn.nextInt(topItems.size())));
+                    look.addPart(bottomItems.get(rn.nextInt(bottomItems.size())));
+                    look.addPart(bootsItems.get(rn.nextInt(bootsItems.size())));
                 }
             }
         }
@@ -162,22 +178,27 @@ public class LookService {
             //убираем вещи с неподходящими сезонами и стилями
             removeStyles(bootsItems, styles);
             removeStyles(dressItems, styles);
+
+//            removeSeasons(bootsItems, seasons);
+//            removeSeasons(dressItems, seasons);
+
             if (seasons != null) {
                 removeSeasons(bootsItems, seasons);
                 removeSeasons(dressItems, seasons);
             }
+
             //выбираем рандомные вещи и создаем лук
             if (item == null) {
-                look.addPart(dressItems.get(rn.nextInt(dressItems.size() + 1)));
-                look.addPart(bootsItems.get(rn.nextInt(bootsItems.size() + 1)));
+                look.addPart(dressItems.get(rn.nextInt(dressItems.size())));
+                look.addPart(bootsItems.get(rn.nextInt(bootsItems.size())));
             } else {
                 String itemType = item.getType();
                 if (Objects.equals(itemType, "Boots")) {
-                    look.addPart(dressItems.get(rn.nextInt(dressItems.size() + 1)));
+                    look.addPart(dressItems.get(rn.nextInt(dressItems.size())));
                     look.addPart(item);
                 } else if (Objects.equals(itemType, "Dress")) {
                     look.addPart(item);
-                    look.addPart(bootsItems.get(rn.nextInt(bootsItems.size() + 1)));
+                    look.addPart(bootsItems.get(rn.nextInt(bootsItems.size())));
                 }
             }
         }
@@ -189,9 +210,12 @@ public class LookService {
         Random rn = new Random();
         int randomLook = rn.nextInt(3); // три варианта состава лука
         int randomStyle = rn.nextInt(5) + 1; //выбираем стиль
-        Style style = styleRepo.findById(randomStyle).get(); //выбираем стиль
+        Style style = styleRepo.findById(randomStyle).get();
 
-        Look look = createLook(randomLook, null, (List<Style>) style, null);
+        //int randomSeason = rn.nextInt(5) + 1; //выбираем сезон
+        //Season season = seasonRepo.findById(randomSeason).get();
+        //Look look = createLook(randomLook, createListFromObject(season), createListFromObject(style), null);
+        Look look = createLook(randomLook, null, createListFromObject(style), null);
         lookRepo.save(look);
         return look;
     }
@@ -201,33 +225,39 @@ public class LookService {
         Random rn = new Random();
         int randomLook = rn.nextInt(3); // три варианта состава лука
         int randomStyle = rn.nextInt(5) + 1; //выбираем стиль
-        Style style = styleRepo.findById(randomStyle).get(); //выбираем стиль
+        Style style = styleRepo.findById(randomStyle).get();
+
+//        int randomSeason = rn.nextInt(5) + 1; //выбираем сезон
+//        Season season = seasonRepo.findById(randomSeason).get();
 
         Look look = new Look();
-        look.setUser(new User());
+        look.setUser(userRepo.findById(UUID.fromString("9948d6e7-7668-4a69-bb04-57dda8a7d79e")).get());
 
-        if (seasons == null && styles == null && itemId != null) { //здесь только item обязательный
+        if (seasons.isEmpty() && styles.isEmpty() && itemId != null) { //здесь только item обязательный
             Item item = itemRepo.findById(itemId).get();
+            //look = createLook(randomLook, createListFromObject(season), item.getStyles(), item);
             look = createLook(randomLook, null, item.getStyles(), item);
         } else
-        if (seasons == null && itemId == null && styles != null) { //здесь только styles обязательный
+        if (seasons.isEmpty() && itemId == null && !styles.isEmpty()) { //здесь только styles обязательный
+//            look = createLook(randomLook, createListFromObject(season), styles, null);
             look = createLook(randomLook, null, styles, null);
         } else
-        if (itemId == null && styles == null && seasons != null) { //здесь только seasons обязательный
-            look = createLook(randomLook, seasons, (List<Style>) style, null);
+        if (itemId == null && styles.isEmpty() && !seasons.isEmpty()) { //здесь только seasons обязательный
+            look = createLook(randomLook, seasons, createListFromObject(style), null);
         } else
-        if (seasons == null && styles != null && itemId != null) { //здесь  item style обязательный
+        if (seasons.isEmpty() && !styles.isEmpty() && itemId != null) { //здесь  item style обязательный
             Item item = itemRepo.findById(itemId).get();
+            //look = createLook(randomLook, createListFromObject(season), styles, item);
             look = createLook(randomLook, null, styles, item);
         } else
-        if (itemId == null && styles != null && seasons != null) { //здесь  seasons style обязательный
+        if (itemId == null && !styles.isEmpty() && !seasons.isEmpty()) { //здесь  seasons style обязательный
             look = createLook(randomLook, seasons, styles, null);
         } else
-        if (styles == null && itemId != null && seasons != null) { //здесь  item seasons обязательный
+        if (styles.isEmpty() && itemId != null && !seasons.isEmpty()) { //здесь  item seasons обязательный
             Item item = itemRepo.findById(itemId).get();
-            look = createLook(randomLook, seasons, (List<Style>) style, item);
+            look = createLook(randomLook, seasons, createListFromObject(style), item);
         } else
-        if (seasons != null && styles != null && itemId != null) { //здесь все поля обязательные
+        if (!seasons.isEmpty() && !styles.isEmpty() && itemId != null) { //здесь все поля обязательные
             Item item = itemRepo.findById(itemId).get();
             look = createLook(randomLook, seasons, styles, item);
         }
