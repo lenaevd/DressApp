@@ -1,6 +1,7 @@
 package Dress.app.Mappers;
 
 import Dress.app.Models.Item;
+import Dress.app.Models.Season;
 import Dress.app.Models.Style;
 import Dress.app.Responses.getAllItemsResponse;
 
@@ -16,11 +17,13 @@ public class infoFromItems {
     private String color;
     private String type;
     private List<String> styles;
+    private List<String> seasons;
 
     public infoFromItems() {
     }
 
-    public infoFromItems(UUID id, String name, String link, String fabric, String color, String type, List<String> styles) {
+    public infoFromItems(UUID id, String name, String link, String fabric,
+                         String color, String type, List<String> styles, List<String> seasons) {
         this.id = id;
         this.name = name;
         this.link = link;
@@ -28,12 +31,7 @@ public class infoFromItems {
         this.color = color;
         this.type = type;
         this.styles = styles;
-    }
-
-    public infoFromItems(String name, String link, String color) {
-        this.name = name;
-        this.link = link;
-        this.color = color;
+        this.seasons = seasons;
     }
 
     public static List<getAllItemsResponse> createInfoNameLinkColor(List<Item> items) {
@@ -59,17 +57,40 @@ public class infoFromItems {
                     item.getFabric(),
                     item.getColor(),
                     item.getType(),
-                    createStylesInfo(item.getStyles())
+                    createStylesInfo(item.getStyles()),
+                    createSeasonsInfo(item.getSeasons())
             );
             list.add(info);
         }
         return list;
     }
 
+    public static infoFromItems createInfoAboutItem(Item item) {
+        return new infoFromItems(
+                item.getId(),
+                item.getName(),
+                item.getLink(),
+                item.getFabric(),
+                item.getColor(),
+                item.getType(),
+                createStylesInfo(item.getStyles()),
+                createSeasonsInfo(item.getSeasons())
+        );
+    }
+
+
+
     public static List<String> createStylesInfo(List<Style> styles) {
         List<String> list = new ArrayList<>();
         for(Style style: styles) {
             list.add(style.getName());
+        }
+        return list;
+    }
+    public static List<String> createSeasonsInfo(List<Season> seasons) {
+        List<String> list = new ArrayList<>();
+        for(Season season: seasons) {
+            list.add(season.getName());
         }
         return list;
     }
@@ -128,5 +149,13 @@ public class infoFromItems {
 
     public void setStyles(List<String> styles) {
         this.styles = styles;
+    }
+
+    public List<String> getSeasons() {
+        return seasons;
+    }
+
+    public void setSeasons(List<String> seasons) {
+        this.seasons = seasons;
     }
 }

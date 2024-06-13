@@ -39,6 +39,10 @@ public class ItemService {
         return user.getItems();
     }
 
+    public Item getItemByLink(String link) {
+        return itemRepo.findByLink(link);
+    }
+
     public List<Item> getUsersFavourites(UUID id) {
         User user = userRepo.findById(id).get();
         return user.getFavourites();

@@ -35,6 +35,12 @@ public class ItemController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
+    @GetMapping("/link")
+    public ResponseEntity<infoFromItems> getItemInfoByLink(@RequestParam String link) {
+        Item item = itemService.getItemByLink(link);
+        return ResponseEntity.ok(infoFromItems.createInfoAboutItem(item));
+    }
+
     @GetMapping //получаем все вещи (название, ссылка, цвет вещи)
     public ResponseEntity<List<getAllItemsResponse>> getAllItems() {
         List<Item> items = itemService.getAll();
