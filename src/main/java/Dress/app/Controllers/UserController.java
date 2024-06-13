@@ -8,14 +8,14 @@ import Dress.app.Requests.GetUserByName;
 import Dress.app.services.ItemService;
 import Dress.app.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
@@ -31,10 +31,14 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UUID> saveUser(@RequestBody CreateUserRequest request) {
+    public ResponseEntity<Map<String, UUID>> saveUser(@RequestBody CreateUserRequest request) {
         User user = mapper.Map(request);
-        UUID savedUser = userService.save(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
+        UUID savedUserId = userService.save(user);
+        Map<String, UUID> response = new HashMap<>();
+        if (savedUserId != null) {
+            response.put("id", savedUserId);
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @GetMapping("/getByName")
