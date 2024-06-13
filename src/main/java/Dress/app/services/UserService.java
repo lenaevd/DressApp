@@ -35,31 +35,55 @@ public class UserService {
         return userRepo.findUserByNameAndPassword(request.name, request.password);
     }
 
-    public void addItem(UUID userId, UUID itemId) {
-        User user = userRepo.findById(userId).get();
-        Item item = itemRepo.findById(itemId).get();
-        user.addItem(item);
-        userRepo.save(user);
+    public String addItem(UUID userId, UUID itemId) {
+        Optional<User> userOptional = userRepo.findById(userId);
+        Optional<Item> itemOptional = itemRepo.findById(itemId);
+        if (userOptional.isPresent() && itemOptional.isPresent()) {
+            User user = userOptional.get();
+            user.addItem(itemOptional.get());
+            userRepo.save(user);
+            return "Item saved";
+        } else {
+            return "not found";
+        }
     }
 
-    public void removeItem(UUID userId, UUID itemId) {
-        User user = userRepo.findById(userId).get();
-        Item item = itemRepo.findById(itemId).get();
-        user.removeItem(item);
-        userRepo.save(user);
+    public String removeItem(UUID userId, UUID itemId) {
+        Optional<User> userOptional = userRepo.findById(userId);
+        Optional<Item> itemOptional = itemRepo.findById(itemId);
+        if (userOptional.isPresent() && itemOptional.isPresent()) {
+            User user = userOptional.get();
+            user.removeItem(itemOptional.get());
+            userRepo.save(user);
+            return "Item removed";
+        } else {
+            return "not found";
+        }
     }
 
-    public void addItemToFavourites(UUID userId, UUID itemId) {
-        User user = userRepo.findById(userId).get();
-        Item item = itemRepo.findById(itemId).get();
-        user.addItemToFavourites(item);
-        userRepo.save(user);
+    public String addItemToFavourites(UUID userId, UUID itemId) {
+        Optional<User> userOptional = userRepo.findById(userId);
+        Optional<Item> itemOptional = itemRepo.findById(itemId);
+        if (userOptional.isPresent() && itemOptional.isPresent()) {
+            User user = userOptional.get();
+            user.addItemToFavourites(itemOptional.get());
+            userRepo.save(user);
+            return "Item saved";
+        } else {
+            return "not found";
+        }
     }
 
-    public void removeItemFromFavourites(UUID userId, UUID itemId) {
-        User user = userRepo.findById(userId).get();
-        Item item = itemRepo.findById(itemId).get();
-        user.removeItemFromFavourites(item);
-        userRepo.save(user);
+    public String removeItemFromFavourites(UUID userId, UUID itemId) {
+        Optional<User> userOptional = userRepo.findById(userId);
+        Optional<Item> itemOptional = itemRepo.findById(itemId);
+        if (userOptional.isPresent() && itemOptional.isPresent()) {
+            User user = userOptional.get();
+            user.removeItemFromFavourites(itemOptional.get());
+            userRepo.save(user);
+            return "Item removed";
+        } else {
+            return "not found";
+        }
     }
 }

@@ -63,24 +63,40 @@ public class UserController {
     }
 
     @PostMapping("addUsersItem") //добавляем вещь пользователю
-    public ResponseEntity<Void> addItemToUser(@RequestBody addItemToUserRequest request) {
-        userService.addItem(request.userId, request.itemId);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    public ResponseEntity<String> addItemToUser(@RequestBody addItemToUserRequest request) {
+        String response = userService.addItem(request.userId, request.itemId);
+        if (Objects.equals(response, "Item saved")) {
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
     @PostMapping("/removeUsersItem") // удаляем вещь пользователя
-    public ResponseEntity<Void> removeUsersItem(@RequestBody addItemToUserRequest request) {
-        userService.removeItem(request.userId, request.itemId);
-        return ResponseEntity.status(HttpStatus.OK).build();
+    public ResponseEntity<String> removeUsersItem(@RequestBody addItemToUserRequest request) {
+        String response = userService.removeItem(request.userId, request.itemId);
+        if (Objects.equals(response, "Item removed")) {
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping("addFavourite") //добавляем вещь в любимые
-    public ResponseEntity<Void> addItemToUFavourites(@RequestBody addItemToUserRequest request) {
-        userService.addItemToFavourites(request.userId, request.itemId);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    public ResponseEntity<String> addItemToUFavourites(@RequestBody addItemToUserRequest request) {
+        String response = userService.addItemToFavourites(request.userId, request.itemId);
+        if (Objects.equals(response, "Item saved")) {
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
     @PostMapping("removeFavourite") //удаляем из любимых
-    public ResponseEntity<Void> removeItemFromFavourites(@RequestBody addItemToUserRequest request) {
-        userService.removeItemFromFavourites(request.userId, request.itemId);
-        return ResponseEntity.status(HttpStatus.OK).build();
+    public ResponseEntity<String> removeItemFromFavourites(@RequestBody addItemToUserRequest request) {
+        String response = userService.removeItemFromFavourites(request.userId, request.itemId);
+        if (Objects.equals(response, "Item removed")) {
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
