@@ -10,7 +10,7 @@ import java.util.List;
 
 @Service
 public class SeasonConverter {
-    private SeasonRepository repo;
+    private final SeasonRepository repo;
 
     @Autowired
     public SeasonConverter(SeasonRepository repo){

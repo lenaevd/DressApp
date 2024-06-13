@@ -17,9 +17,9 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/looks")
 public class LookController {
-    private LookService lookService;
-    private StyleConverter styleConverter;
-    private SeasonConverter seasonConverter;
+    private final LookService lookService;
+    private final StyleConverter styleConverter;
+    private final SeasonConverter seasonConverter;
 
     @Autowired
     public LookController(LookService lookService, SeasonConverter seasonConverter, StyleConverter styleConverter) {
@@ -28,7 +28,7 @@ public class LookController {
         this.styleConverter = styleConverter;
     }
 
-    @GetMapping()
+    @GetMapping() //получаем все луки юзера
     public ResponseEntity<List<infoFromLook>> getAllLooks(@RequestParam UUID userId) {
         List<Look> looks = lookService.getUsersLooks(userId);
         return ResponseEntity.ok(infoFromLook.createInfo(looks));
@@ -45,9 +45,9 @@ public class LookController {
     public ResponseEntity<List<infoFromItems>> getNewLookWithParameters(
             @RequestParam UUID userId, @RequestBody LookParametersRequest data) {
         Look look = lookService.createLookWithParameters(userId,
-                seasonConverter.makeSeasons(data.getSeasonsNames()),
-                styleConverter.makeStyles(data.getStylesNames()),
-                data.getItemId());
+                seasonConverter.makeSeasons(data.seasonsNames),
+                styleConverter.makeStyles(data.stylesNames),
+                data.itemId);
         return ResponseEntity.ok(infoFromItems.createInfo(look.getParts()));
     }
 }

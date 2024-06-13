@@ -9,11 +9,11 @@ import java.util.*;
 
 @Service
 public class LookService {
-    private LookRepository lookRepo;
-    private ItemRepository itemRepo;
-    private StyleRepository styleRepo;
-    private UserRepository userRepo;
-    private SeasonRepository seasonRepo;
+    private final LookRepository lookRepo;
+    private final ItemRepository itemRepo;
+    private final StyleRepository styleRepo;
+    private final UserRepository userRepo;
+    private final SeasonRepository seasonRepo;
 
 
     @Autowired

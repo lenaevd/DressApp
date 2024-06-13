@@ -5,6 +5,7 @@ import Dress.app.Models.Item;
 import Dress.app.Models.User;
 import Dress.app.Requests.CreateUserRequest;
 import Dress.app.Requests.GetUserByName;
+import Dress.app.Requests.addItemToUserRequest;
 import Dress.app.services.ItemService;
 import Dress.app.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,5 +60,27 @@ public class UserController {
         } else {
             return ResponseEntity.ok(user.get());
         }
+    }
+
+    @PostMapping("addUsersItem") //добавляем вещь пользователю
+    public ResponseEntity<Void> addItemToUser(@RequestBody addItemToUserRequest request) {
+        userService.addItem(request.userId, request.itemId);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+    @PostMapping("/removeUsersItem") // удаляем вещь пользователя
+    public ResponseEntity<Void> removeUsersItem(@RequestBody addItemToUserRequest request) {
+        userService.removeItem(request.userId, request.itemId);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @PostMapping("addFavourite") //добавляем вещь в любимые
+    public ResponseEntity<Void> addItemToUFavourites(@RequestBody addItemToUserRequest request) {
+        userService.addItemToFavourites(request.userId, request.itemId);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+    @PostMapping("removeFavourite") //удаляем из любимых
+    public ResponseEntity<Void> removeItemFromFavourites(@RequestBody addItemToUserRequest request) {
+        userService.removeItemFromFavourites(request.userId, request.itemId);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

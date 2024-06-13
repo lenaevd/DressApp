@@ -1,7 +1,9 @@
 package Dress.app.services;
 
 import Dress.app.Models.Item;
+import Dress.app.Models.User;
 import Dress.app.repos.ItemRepository;
+import Dress.app.repos.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,26 +13,38 @@ import java.util.UUID;
 
 @Service
 public class ItemService {
-    private ItemRepository repo;
+    private final ItemRepository itemRepo;
+    private final UserRepository userRepo;
 
     @Autowired
-    public ItemService(ItemRepository repo) {
-        this.repo = repo;
+    public ItemService(ItemRepository itemRepo, UserRepository userRepo) {
+        this.itemRepo = itemRepo;
+        this.userRepo = userRepo;
     }
 
     public void save(Item item){
-        repo.save(item);
+        itemRepo.save(item);
     }
 
     public void saveAll(List<Item> items) {
-        repo.saveAll(items);
+        itemRepo.saveAll(items);
     }
 
     public List<Item> getAll(){
-        return repo.findAll();
+        return itemRepo.findAll();
+    }
+
+    public List<Item> getUsersItems(UUID id) {
+        User user = userRepo.findById(id).get();
+        return user.getItems();
+    }
+
+    public List<Item> getUsersFavourites(UUID id) {
+        User user = userRepo.findById(id).get();
+        return user.getFavourites();
     }
 
     public Optional<Item> get(UUID id) {
-        return repo.findById(id);
+        return itemRepo.findById(id);
     }
 }

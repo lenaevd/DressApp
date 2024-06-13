@@ -93,7 +93,7 @@
 <!--        Users items and favourites start -->
     <changeSet id="7" author="admin">
         <createTable tableName="users_items">
-            <column name="id" type="uuid">
+            <column autoIncrement="true" name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="item_id" type="uuid">
@@ -107,7 +107,7 @@
 
     <changeSet id="8" author="admin">
         <createTable tableName="users_favourites">
-            <column name="id" type="uuid">
+            <column autoIncrement="true" name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="item_id" type="uuid">

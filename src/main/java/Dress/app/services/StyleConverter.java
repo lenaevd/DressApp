@@ -10,7 +10,7 @@ import java.util.List;
 
 @Service
 public class StyleConverter {
-    private StyleRepository repo;
+    private final StyleRepository repo;
 
     @Autowired
     public StyleConverter(StyleRepository repo){

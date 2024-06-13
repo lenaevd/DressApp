@@ -17,7 +17,7 @@ public class User {
     private String password;
     private String email;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_items",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -25,7 +25,7 @@ public class User {
     )
     private List<Item> items = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_favourites",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -35,6 +35,20 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Look> looks = new ArrayList<>();
+
+    public void addItem(Item item) {
+        this.items.add(item);
+    }
+    public void removeItem(Item item) {
+        this.items.remove(item);
+    }
+    public void addItemToFavourites(Item item) {
+        this.favourites.add(item);
+    }
+
+    public void removeItemFromFavourites(Item item) {
+        this.favourites.remove(item);
+    }
 
     public User() {
     }

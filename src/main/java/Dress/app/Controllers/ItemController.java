@@ -29,15 +29,26 @@ public class ItemController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @PostMapping("/saveAll")
+    @PostMapping("/saveAll")  // сохраняем наши джейсончики вещей
     public ResponseEntity<Void> saveAllItems(@RequestBody List<Item> items) {
         itemService.saveAll(items);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @GetMapping
+    @GetMapping //получаем все вещи (название, ссылка, цвет вещи)
     public ResponseEntity<List<getAllItemsResponse>> getAllItems() {
         List<Item> items = itemService.getAll();
+        return ResponseEntity.ok(infoFromItems.createInfoNameLinkColor(items));
+    }
+
+    @GetMapping("/user") //получаем гардероб юзера!!! (название, ссылка, цвет вещи)
+    public ResponseEntity<List<getAllItemsResponse>> getUsersItems(@RequestParam UUID userId) {
+        List<Item> items = itemService.getUsersItems(userId);
+        return ResponseEntity.ok(infoFromItems.createInfoNameLinkColor(items));
+    }
+    @GetMapping("/userFavourites") //получаем любимые юзера!!! (название, ссылка, цвет вещи)
+    public ResponseEntity<List<getAllItemsResponse>> getUsersFavourites(@RequestParam UUID userId) {
+        List<Item> items = itemService.getUsersFavourites(userId);
         return ResponseEntity.ok(infoFromItems.createInfoNameLinkColor(items));
     }
 
