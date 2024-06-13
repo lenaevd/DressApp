@@ -1,4 +1,4 @@
-package Dress.app.Controllers;
+package Dress.app.Mappers;
 
 import Dress.app.Models.Look;
 
@@ -6,24 +6,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class LookInfo {
+public class infoFromLook {
     private UUID id;
-    private List<ItemsInfo> items;
+    private List<infoFromItems> items;
 
-    public LookInfo() {
+    public infoFromLook() {
     }
 
-    public LookInfo(UUID id, List<ItemsInfo> items) {
+    public infoFromLook(UUID id, List<infoFromItems> items) {
         this.id = id;
         this.items = items;
     }
 
-    public static List<LookInfo> createInfo(List<Look> looks) {
-        List<LookInfo> list = new ArrayList<>();
+    public static List<infoFromLook> createInfo(List<Look> looks) {
+        List<infoFromLook> list = new ArrayList<>();
         for(Look look: looks) {
-            LookInfo info = new LookInfo(
+            infoFromLook info = new infoFromLook(
                     look.getId(),
-                    ItemsInfo.createInfo(look.getParts())
+                    infoFromItems.createInfo(look.getParts())
             );
             list.add(info);
         }
@@ -38,11 +38,11 @@ public class LookInfo {
         this.id = id;
     }
 
-    public List<ItemsInfo> getItems() {
+    public List<infoFromItems> getItems() {
         return items;
     }
 
-    public void setItems(List<ItemsInfo> items) {
+    public void setItems(List<infoFromItems> items) {
         this.items = items;
     }
 }

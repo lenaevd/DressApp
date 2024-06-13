@@ -1,6 +1,8 @@
 package Dress.app.Controllers;
 
+import Dress.app.Mappers.infoFromItems;
 import Dress.app.Models.Item;
+import Dress.app.Responses.getAllItemsResponse;
 import Dress.app.services.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,9 +36,9 @@ public class ItemController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Item>> getAllItems() {
+    public ResponseEntity<List<getAllItemsResponse>> getAllItems() {
         List<Item> items = itemService.getAll();
-        return ResponseEntity.ok(items);
+        return ResponseEntity.ok(infoFromItems.createInfoNameLinkColor(items));
     }
 
     @GetMapping("/getById")

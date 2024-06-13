@@ -1,13 +1,14 @@
-package Dress.app.Controllers;
+package Dress.app.Mappers;
 
 import Dress.app.Models.Item;
 import Dress.app.Models.Style;
+import Dress.app.Responses.getAllItemsResponse;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class ItemsInfo {
+public class infoFromItems {
     private UUID id;
     private String name;
     private String link;
@@ -16,10 +17,10 @@ public class ItemsInfo {
     private String type;
     private List<String> styles;
 
-    public ItemsInfo() {
+    public infoFromItems() {
     }
 
-    public ItemsInfo(UUID id, String name, String link, String fabric, String color, String type, List<String> styles) {
+    public infoFromItems(UUID id, String name, String link, String fabric, String color, String type, List<String> styles) {
         this.id = id;
         this.name = name;
         this.link = link;
@@ -29,10 +30,29 @@ public class ItemsInfo {
         this.styles = styles;
     }
 
-    public static List<ItemsInfo> createInfo(List<Item> items) {
-        List<ItemsInfo> list = new ArrayList<>();
+    public infoFromItems(String name, String link, String color) {
+        this.name = name;
+        this.link = link;
+        this.color = color;
+    }
+
+    public static List<getAllItemsResponse> createInfoNameLinkColor(List<Item> items) {
+        List<getAllItemsResponse> list = new ArrayList<>();
         for(Item item: items) {
-            ItemsInfo info = new ItemsInfo(
+            getAllItemsResponse info = new getAllItemsResponse(
+                    item.getName(),
+                    item.getLink(),
+                    item.getColor()
+            );
+            list.add(info);
+        }
+        return list;
+    }
+
+    public static List<infoFromItems> createInfo(List<Item> items) {
+        List<infoFromItems> list = new ArrayList<>();
+        for(Item item: items) {
+            infoFromItems info = new infoFromItems(
                     item.getId(),
                     item.getName(),
                     item.getLink(),

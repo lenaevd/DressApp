@@ -1,15 +1,15 @@
-package Dress.app.Controllers;
+package Dress.app.Requests;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class LookParameters {
+public class LookParametersRequest {
     private List<String> seasonsNames = new ArrayList<>();
     private List<String> stylesNames = new ArrayList<>();
     private UUID itemId;
 
-    public LookParameters() {
+    public LookParametersRequest() {
     }
 
     @Override

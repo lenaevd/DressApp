@@ -1,6 +1,9 @@
 package Dress.app.Controllers;
 
+import Dress.app.Mappers.infoFromItems;
+import Dress.app.Mappers.infoFromLook;
 import Dress.app.Models.Look;
+import Dress.app.Requests.LookParametersRequest;
 import Dress.app.services.LookService;
 import Dress.app.services.SeasonConverter;
 import Dress.app.services.StyleConverter;
@@ -9,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/looks")
@@ -25,25 +29,26 @@ public class LookController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<LookInfo>> getAllLooks() {
-        List<Look> looks = lookService.getAll();
-        return ResponseEntity.ok(LookInfo.createInfo(looks));
+    public ResponseEntity<List<infoFromLook>> getAllLooks(@RequestParam UUID userId) {
+        List<Look> looks = lookService.getUsersLooks(userId);
+        return ResponseEntity.ok(infoFromLook.createInfo(looks));
     }
 
     @GetMapping("/new") // используем когда обязательных нет
-    public ResponseEntity<List<ItemsInfo>> getNewLookNoParameters() {
-        Look look = lookService.createLookNoParameters();
-        return ResponseEntity.ok(ItemsInfo.createInfo(look.getParts()));
+    public ResponseEntity<List<infoFromItems>> getNewLookNoParameters(@RequestParam UUID userId) {
+        Look look = lookService.createLookNoParameters(userId);
+        return ResponseEntity.ok(infoFromItems.createInfo(look.getParts()));
     }
 
     @PostMapping("/parameters")  // крч на это маппинг отправляем, только если есть обязательные сезон, стиль или вещи
     //т.к. если тело пустое - ругается, с пустым телом используем маппинг /new
-    public ResponseEntity<List<ItemsInfo>> getNewLookWithParameters(@RequestBody LookParameters data) {
-        Look look = lookService.createLookWithParameters(
+    public ResponseEntity<List<infoFromItems>> getNewLookWithParameters(
+            @RequestParam UUID userId, @RequestBody LookParametersRequest data) {
+        Look look = lookService.createLookWithParameters(userId,
                 seasonConverter.makeSeasons(data.getSeasonsNames()),
                 styleConverter.makeStyles(data.getStylesNames()),
                 data.getItemId());
-        return ResponseEntity.ok(ItemsInfo.createInfo(look.getParts()));
+        return ResponseEntity.ok(infoFromItems.createInfo(look.getParts()));
     }
 }
 
