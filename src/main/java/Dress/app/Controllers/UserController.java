@@ -42,7 +42,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @GetMapping("/getByName")
+    @PostMapping("/getByName")
     public ResponseEntity<User> getUser(@RequestBody GetUserByName request) {
         User user = userService.getByName(request);
         if (user == null) {
