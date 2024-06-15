@@ -8,6 +8,7 @@ import Dress.app.repos.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -45,6 +46,22 @@ public class UserService {
             return "Item saved";
         } else {
             return "not found";
+        }
+    }
+
+    public String addItems(UUID userId, List<String> itemsLinks) {
+        Optional<User> userOptional = userRepo.findById(userId);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            for (String items : itemsLinks) {
+                Item itemOptional = itemRepo.findByLink(items);
+                user.addItem(itemOptional);
+                userRepo.save(user);
+            }
+            return "Item saved";
+        }
+         else {
+            return "user not found";
         }
     }
 

@@ -6,6 +6,7 @@ import Dress.app.Models.User;
 import Dress.app.Requests.CreateUserRequest;
 import Dress.app.Requests.GetUserByName;
 import Dress.app.Requests.addItemToUserRequest;
+import Dress.app.Requests.addItemsToUserRequest;
 import Dress.app.services.ItemService;
 import Dress.app.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,6 +72,17 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @PostMapping("addUsersItems") //добавляем вещь пользователю
+    public ResponseEntity<String> addItemsToUser(@RequestBody addItemsToUserRequest request) {
+        String response = userService.addItems(request.userId, request.itemsLinks);
+        if (Objects.equals(response, "Item saved")) {
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @PostMapping("/removeUsersItem") // удаляем вещь пользователя
     public ResponseEntity<String> removeUsersItem(@RequestBody addItemToUserRequest request) {
         String response = userService.removeItem(request.userId, request.itemId);
@@ -90,6 +102,8 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
+
+
     @PostMapping("removeFavourite") //удаляем из любимых
     public ResponseEntity<String> removeItemFromFavourites(@RequestBody addItemToUserRequest request) {
         String response = userService.removeItemFromFavourites(request.userId, request.itemId);
