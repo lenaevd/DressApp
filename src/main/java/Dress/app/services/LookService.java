@@ -226,7 +226,8 @@ public class LookService {
     }
 
     //метод, создающий лук, когда есть какие-то обязательные параметры
-    public Look createLookWithParameters(UUID userId, List<Season> seasons, List<Style> styles, UUID itemId) {
+    // здесь стринг айтем айди это ссылка на картинку, всё обман....
+    public Look createLookWithParameters(UUID userId, List<Season> seasons, List<Style> styles, String itemId) {
         Random rn = new Random();
         int randomLook = rn.nextInt(3); // три варианта состава лука
         int randomStyle = rn.nextInt(5) + 1; //выбираем стиль
@@ -239,7 +240,7 @@ public class LookService {
         look.setUser(userRepo.findById(userId).get());
 
         if (seasons.isEmpty() && styles.isEmpty() && itemId != null) { //здесь только item обязательный
-            Item item = itemRepo.findById(itemId).get();
+            Item item = itemRepo.findByLink(itemId);
             //look = createLook(randomLook, createListFromObject(season), item.getStyles(), item);
             look = createLook(userId, randomLook, null, item.getStyles(), item);
         } else
@@ -251,7 +252,7 @@ public class LookService {
             look = createLook(userId, randomLook, seasons, createListFromObject(style), null);
         } else
         if (seasons.isEmpty() && !styles.isEmpty() && itemId != null) { //здесь  item style обязательный
-            Item item = itemRepo.findById(itemId).get();
+            Item item = itemRepo.findByLink(itemId);
             //look = createLook(randomLook, createListFromObject(season), styles, item);
             look = createLook(userId, randomLook, null, styles, item);
         } else
@@ -259,11 +260,11 @@ public class LookService {
             look = createLook(userId, randomLook, seasons, styles, null);
         } else
         if (styles.isEmpty() && itemId != null && !seasons.isEmpty()) { //здесь  item seasons обязательный
-            Item item = itemRepo.findById(itemId).get();
+            Item item = itemRepo.findByLink(itemId);
             look = createLook(userId, randomLook, seasons, createListFromObject(style), item);
         } else
         if (!seasons.isEmpty() && !styles.isEmpty() && itemId != null) { //здесь все поля обязательные
-            Item item = itemRepo.findById(itemId).get();
+            Item item = itemRepo.findByLink(itemId);
             look = createLook(userId, randomLook, seasons, styles, item);
         }
         lookRepo.save(look);

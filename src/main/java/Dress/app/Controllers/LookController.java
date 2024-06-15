@@ -47,7 +47,7 @@ public class LookController {
         Look look = lookService.createLookWithParameters(userId,
                 seasonConverter.makeSeasons(data.seasonsNames),
                 styleConverter.makeStyles(data.stylesNames),
-                data.itemId);
+                data.link);
         return ResponseEntity.ok(infoFromItems.createInfo(look.getParts()));
     }
 }
