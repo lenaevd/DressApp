@@ -13,7 +13,7 @@ public class SeasonConverter {
     private final SeasonRepository repo;
 
     @Autowired
-    public SeasonConverter(SeasonRepository repo){
+    public SeasonConverter(SeasonRepository repo) {
         this.repo = repo;
     }
 
@@ -22,7 +22,7 @@ public class SeasonConverter {
             return null;
         } else {
             List<Season> seasons = new ArrayList<>();
-            for (String name: seasonsNames) {
+            for (String name : seasonsNames) {
                 seasons.add(repo.findByName(name));
             }
             return seasons;

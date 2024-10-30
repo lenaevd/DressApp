@@ -36,7 +36,7 @@ public class infoFromItems {
 
     public static List<getAllItemsResponse> createInfoNameLinkColor(List<Item> items) {
         List<getAllItemsResponse> list = new ArrayList<>();
-        for(Item item: items) {
+        for (Item item : items) {
             getAllItemsResponse info = new getAllItemsResponse(
                     item.getName(),
                     item.getLink(),
@@ -49,7 +49,7 @@ public class infoFromItems {
 
     public static List<infoFromItems> createInfo(List<Item> items) {
         List<infoFromItems> list = new ArrayList<>();
-        for(Item item: items) {
+        for (Item item : items) {
             infoFromItems info = new infoFromItems(
                     item.getId(),
                     item.getName(),
@@ -79,17 +79,17 @@ public class infoFromItems {
     }
 
 
-
     public static List<String> createStylesInfo(List<Style> styles) {
         List<String> list = new ArrayList<>();
-        for(Style style: styles) {
+        for (Style style : styles) {
             list.add(style.getName());
         }
         return list;
     }
+
     public static List<String> createSeasonsInfo(List<Season> seasons) {
         List<String> list = new ArrayList<>();
-        for(Season season: seasons) {
+        for (Season season : seasons) {
             list.add(season.getName());
         }
         return list;

@@ -73,7 +73,7 @@ public class UserController {
         }
     }
 
-    @PostMapping("addUsersItems") //добавляем вещь пользователю
+    @PostMapping("addUsersItems") //добавляем вещи пользователю в гардероб
     public ResponseEntity<String> addItemsToUser(@RequestBody addItemsToUserRequest request) {
         String response = userService.addItems(request.userId, request.itemsLinks);
         if (Objects.equals(response, "Item saved")) {
@@ -83,7 +83,7 @@ public class UserController {
         }
     }
 
-    @PostMapping("/removeUsersItem") // удаляем вещь пользователя
+    @PostMapping("/removeUsersItem") // удаляем вещь пользователя из гардероба
     public ResponseEntity<String> removeUsersItem(@RequestBody addItemToUserRequest request) {
         String response = userService.removeItem(request.userId, request.itemId);
         if (Objects.equals(response, "Item removed")) {
@@ -104,7 +104,7 @@ public class UserController {
     }
 
 
-    @PostMapping("removeFavourite") //удаляем из любимых
+    @PostMapping("removeFavourite") //удаляем вещь из любимых
     public ResponseEntity<String> removeItemFromFavourites(@RequestBody addItemToUserRequest request) {
         String response = userService.removeItemFromFavourites(request.userId, request.itemId);
         if (Objects.equals(response, "Item removed")) {

@@ -13,16 +13,16 @@ public class StyleConverter {
     private final StyleRepository repo;
 
     @Autowired
-    public StyleConverter(StyleRepository repo){
+    public StyleConverter(StyleRepository repo) {
         this.repo = repo;
     }
 
-    public List<Style> makeStyles(List<String> stylesNames){
+    public List<Style> makeStyles(List<String> stylesNames) {
         if (stylesNames == null) {
             return null;
         } else {
             List<Style> styles = new ArrayList<>();
-            for (String name: stylesNames) {
+            for (String name : stylesNames) {
                 styles.add(repo.findByName(name));
             }
             return styles;

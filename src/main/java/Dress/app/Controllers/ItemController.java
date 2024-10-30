@@ -30,13 +30,14 @@ public class ItemController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @PostMapping("/saveAll")  // сохраняем наши джейсончики вещей
+    @PostMapping("/saveAll")  // метод для сохранения всех вещей в базу данных из json в теле запроса
     public ResponseEntity<Void> saveAllItems(@RequestBody List<Item> items) {
         itemService.saveAll(items);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @GetMapping("/link")
+    @GetMapping("/link") /* получить информацию о вещи по ссылке (т.к. при клике на картинку
+    запрашивается вся информация о вещи) */
     public ResponseEntity<infoFromItems> getItemInfoByLink(@RequestParam String link) {
         Item item = itemService.getItemByLink(link);
         return ResponseEntity.ok(infoFromItems.createInfoAboutItem(item));
@@ -53,6 +54,7 @@ public class ItemController {
         List<Item> items = itemService.getUsersItems(userId);
         return ResponseEntity.ok(infoFromItems.createInfoNameLinkColor(items));
     }
+
     @GetMapping("/userFavourites") //получаем любимые юзера!!! (название, ссылка, цвет вещи)
     public ResponseEntity<List<getAllItemsResponse>> getUsersFavourites(@RequestParam UUID userId) {
         List<Item> items = itemService.getUsersFavourites(userId);

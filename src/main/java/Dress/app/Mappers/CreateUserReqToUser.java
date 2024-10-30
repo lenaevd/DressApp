@@ -3,7 +3,6 @@ package Dress.app.Mappers;
 import Dress.app.Models.User;
 import Dress.app.Requests.CreateUserRequest;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.Mapping;
 
 import java.util.UUID;
 

@@ -5,11 +5,11 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
 @Entity
-@Table(name ="users")
+@Table(name = "users")
 public class User {
     @Id
-    //@GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     private String firstName;
     private String lastName;
@@ -39,9 +39,11 @@ public class User {
     public void addItem(Item item) {
         this.items.add(item);
     }
+
     public void removeItem(Item item) {
         this.items.remove(item);
     }
+
     public void addItemToFavourites(Item item) {
         this.favourites.add(item);
     }

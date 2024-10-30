@@ -23,7 +23,7 @@ public class UserService {
         this.itemRepo = itemRepo;
     }
 
-    public UUID save(User user){
+    public UUID save(User user) {
         userRepo.save(user);
         return user.getId();
     }
@@ -59,8 +59,7 @@ public class UserService {
                 userRepo.save(user);
             }
             return "Item saved";
-        }
-         else {
+        } else {
             return "user not found";
         }
     }

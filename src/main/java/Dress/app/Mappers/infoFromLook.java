@@ -20,7 +20,7 @@ public class infoFromLook {
 
     public static List<infoFromLook> createInfo(List<Look> looks) {
         List<infoFromLook> list = new ArrayList<>();
-        for(Look look: looks) {
+        for (Look look : looks) {
             infoFromLook info = new infoFromLook(
                     look.getId(),
                     infoFromItems.createInfo(look.getParts())

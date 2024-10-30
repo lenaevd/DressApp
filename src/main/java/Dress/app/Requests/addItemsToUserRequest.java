@@ -5,5 +5,5 @@ import java.util.UUID;
 
 public class addItemsToUserRequest {
     public UUID userId;
-    public List<String > itemsLinks;
+    public List<String> itemsLinks;
 }
